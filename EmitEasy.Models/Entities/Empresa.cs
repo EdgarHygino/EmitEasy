@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace EmitEasy.Models.Models
 {
-    public class EmpresaModel
+    public class Empresa
     {
-        public EmpresaModel()
+        public Empresa()
         {
-            Ativo = false;
+            Ativo = true;
         }
 
         public Guid Id { get; set; }
@@ -84,7 +84,7 @@ namespace EmitEasy.Models.Models
 
         public void Delete()
         {
-            Ativo = true;
+            Ativo = false;
         }
 
     }

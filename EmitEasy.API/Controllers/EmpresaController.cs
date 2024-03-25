@@ -6,7 +6,7 @@ using System.Data.Entity;
 
 namespace EmitEasy.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/empresa")]
     [ApiController]
     public class EmpresaController : ControllerBase
     {
@@ -20,7 +20,7 @@ namespace EmitEasy.API.Controllers
         [HttpGet]
         public IActionResult GetAll() 
         {
-            var empresas = _context.Empresa.Where(e => !e.Ativo).ToList();
+            var empresas = _context.Empresa.Where(e => e.Ativo).ToList();
             return Ok(empresas);
         }
 
@@ -36,7 +36,7 @@ namespace EmitEasy.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Insert(EmpresaModel empresa)
+        public IActionResult Insert(Empresa empresa)
         {
             _context.Empresa.Add(empresa);
             _context.SaveChanges();
@@ -45,7 +45,7 @@ namespace EmitEasy.API.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(Guid id, EmpresaModel imput)
+        public IActionResult Update(Guid id, Empresa imput)
         {
             var empresa = _context.Empresa.SingleOrDefault(d => d.Id == id);
 

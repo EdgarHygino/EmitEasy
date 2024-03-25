@@ -7,8 +7,13 @@ using System.Threading.Tasks;
 
 namespace EmitEasy.Models.Entities
 {
-    public class ClienteModel
+    public class Cliente
     {
+        public Cliente()
+        {
+            Ativo = true;
+            Tipo = "PJ";
+        }
         public Guid Id { get; set; }
 
         public string RazaoSocial { get; set; }
@@ -20,6 +25,8 @@ namespace EmitEasy.Models.Entities
         public string InscricaoEstadual { get; set; } = string.Empty;
 
         public string InscricaoMunicial { get; set; } = string.Empty;
+
+        public string Tipo { get; set; }
 
         public bool Ativo { get; set; }
 
@@ -78,7 +85,7 @@ namespace EmitEasy.Models.Entities
 
         public void Delete()
         {
-            Ativo = true;
+            Ativo = false;
         }
     }
 }

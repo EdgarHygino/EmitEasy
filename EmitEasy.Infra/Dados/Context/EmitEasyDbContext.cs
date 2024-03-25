@@ -11,7 +11,8 @@ namespace EmitEasy.Infra.Dados.Context
             
         }
 
-        public DbSet<EmpresaModel> Empresa { get; set; }
-        public DbSet<ClienteModel> Cliente { get; set; }
+        public DbSet<Empresa> Empresa { get; set; }
+        public DbSet<Cliente> Cliente { get; set; }
+        public DbSet<NotaFiscalServico> Nfse { get; set; }
     }
 }

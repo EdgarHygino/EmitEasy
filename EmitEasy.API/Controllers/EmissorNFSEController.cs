@@ -1,18 +1,17 @@
 ﻿using EmitEasy.Infra.Dados.Context;
 using EmitEasy.Models.Entities;
 using EmitEasy.Models.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmitEasy.API.Controllers
 {
-    [Route("api/cliente")]
+    [Route("api/[controller]")]
     [ApiController]
-    public class ClienteController : ControllerBase
+    public class EmissorNFSEController: ControllerBase
     {
         private readonly EmitEasyDbContext _context;
 
-        public ClienteController(EmitEasyDbContext context)
+        public EmissorNFSEController(EmitEasyDbContext context)
         {
             _context = context;
         }
@@ -20,42 +19,42 @@ namespace EmitEasy.API.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var empresas = _context.Cliente.Where(e => e.Ativo).ToList();
+            var empresas = _context.Nfse.Where(e => !e.IsDelete).ToList();
             return Ok(empresas);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(Guid id)
         {
-            var empresa = _context.Cliente
+            var notafical = _context.Nfse
                     .SingleOrDefault(e => e.Id == id);
 
-            if (empresa == null) return NotFound();
+            if (notafical == null) return NotFound();
 
-            return Ok(empresa);
+            return Ok(notafical);
         }
 
         [HttpPost]
-        public IActionResult Insert(Cliente cliente)
+        public IActionResult Insert(NotaFiscalServico notafical)
         {
-            _context.Cliente.Add(cliente);
+            _context.Nfse.Add(notafical);
             _context.SaveChanges();
 
-            return CreatedAtAction(nameof(GetById), new { id = cliente.Id }, cliente);
+            return CreatedAtAction(nameof(GetById), new { id = notafical.Id }, notafical);
         }
 
         [HttpPut("{id}")]
-        public IActionResult Update(Guid id, Cliente imput)
+        public IActionResult Update(Guid id, NotaFiscalServico imput)
         {
-            var cliente = _context.Cliente.SingleOrDefault(d => d.Id == id);
+            var notafical = _context.Nfse.SingleOrDefault(d => d.Id == id);
 
-            if (cliente == null) return NotFound();
+            if (notafical == null) return NotFound();
 
-            cliente.Update(imput.RazaoSocial, imput.NomeFantasia, imput.InscricaoEstadual, imput.InscricaoMunicial, imput.Nome,
+            notafical.Update(imput.RazaoSocial, imput.NomeFantasia, imput.InscricaoEstadual, imput.InscricaoMunicial, imput.Nome,
             imput.Descricao, imput.Email, imput.Telefone, imput.Celular, imput.Cep, imput.Rua, imput.Numero, imput.Cidade, imput.Pais,
             imput.Bairro, imput.Estado, imput.Complemento, imput.CodMunicipio);
 
-            _context.Cliente.Update(cliente);
+            _context.Nfse.Update(notafical);
             _context.SaveChanges();
 
             return NoContent();
@@ -64,13 +63,14 @@ namespace EmitEasy.API.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
-            var cliente = _context.Cliente.SingleOrDefault(d => d.Id == id);
+            var notafical = _context.Nfse.SingleOrDefault(d => d.Id == id);
 
-            if (cliente == null) return NotFound();
+            if (notafical == null) return NotFound();
 
-            cliente.Delete();
+            notafical.Delete();
             _context.SaveChanges();
             return NoContent();
         }
     }
+}
 }
