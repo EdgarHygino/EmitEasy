@@ -14,5 +14,24 @@ namespace EmitEasy.Infra.Dados.Context
         public DbSet<Empresa> Empresa { get; set; }
         public DbSet<Cliente> Cliente { get; set; }
         public DbSet<NotaFiscalServico> Nfse { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Empresa>(e =>
+            {
+                e.HasKey(e => e.Id);
+            });
+
+            modelBuilder.Entity<Cliente>(e =>
+            {
+                e.HasKey(e => e.Id);
+
+            });
+
+            modelBuilder.Entity<NotaFiscalServico>(e =>
+            {
+                e.HasKey(e => e.Id);
+            });
+        }
     }
 }

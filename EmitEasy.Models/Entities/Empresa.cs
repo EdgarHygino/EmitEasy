@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,44 +15,66 @@ namespace EmitEasy.Models.Models
             Ativo = true;
         }
 
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
+        [StringLength(100)]
         public string RazaoSocial { get; set; }
 
+        [StringLength(100)]
         public string NomeFantasia { get; set;}
 
+        [StringLength(18)]
         public string Cnpj { get; set;}
 
+        [StringLength(50)]
         public string InscricaoEstadual { get; set;} = string.Empty;
 
+        [StringLength(50)]
         public string InscricaoMunicial { get; set; } = string.Empty;
 
+        [Required]
         public bool Ativo { get; set; }
 
-        public string Nome { get; set; }
+        [StringLength(100)]
+        public string Nome { get; set; } = string.Empty;
 
-        public string Descricao { get; set; }
+        [StringLength(2000)]
+        public string Descricao { get; set; }= string.Empty;
 
+        [StringLength(100)]
+        [EmailAddress]
         public string Email { get; set; }
 
-        public string Telefone { get; set; }
+        [StringLength(11)]
+        public string Telefone { get; set; }= string.Empty;
 
-        public string Celular { get; set; }
+        [StringLength(11)]
+        public string Celular { get; set; } = string.Empty;
 
-        public int Cep { get; set; }
+        [StringLength(8)]
+        public string Cep { get; set; }
 
+        [StringLength(100)]
         public string Rua { get; set; }
 
+        [StringLength(30)]
         public string Numero { get; set; }
 
+        [StringLength(50)]
         public string Cidade { get; set; }
 
+        [StringLength(50)]
         public string Pais { get; set; }
 
+        [StringLength(50)]
         public string Bairro { get; set; }
 
+        [StringLength(50)]
         public string Estado { get; set; }
 
+        [StringLength(100)]
         public string Complemento { get; set; } = string.Empty;
 
         public int CodMunicipio { get; set; }
@@ -58,7 +82,7 @@ namespace EmitEasy.Models.Models
 
 
         public void Update(string razaoSocial, string nomeFantasia, string inscricaoEstadual, string inscricaoMunicial, string nome,
-        string descricao, string email, string telefone, string celular, int cep, string rua, string numero, string cidade, string pais,
+        string descricao, string email, string telefone, string celular, string cep, string rua, string numero, string cidade, string pais,
         string bairro, string estado, string complemento, int codMunicipio)
         {
             RazaoSocial = razaoSocial;

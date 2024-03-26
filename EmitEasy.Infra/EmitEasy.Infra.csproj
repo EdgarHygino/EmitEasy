@@ -21,4 +21,8 @@
     <ProjectReference Include="..\EmitEasy.Models\EmitEasy.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Servicos\" />
+  </ItemGroup>
+
 </Project>
