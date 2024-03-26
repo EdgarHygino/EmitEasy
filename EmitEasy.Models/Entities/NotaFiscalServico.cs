@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EmitEasy.Models.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -50,18 +51,102 @@ namespace EmitEasy.Models.Entities
         public double AliquotaIr { get; set; }
         public double AliquotaInss { get; set; }
 
-        public double valorCofins { get; set; }
-        public double valorPis { get; set; }
-        public double valorCsll { get; set; }
-        public double valorIr { get; set; }
-        public double valorInss { get; set; }
+        public double ValorCofins { get; set; }
+        public double ValorPis { get; set; }
+        public double ValorCsll { get; set; }
+        public double ValorIr { get; set; }
+        public double ValorInss { get; set; }
 
-        public double valorTotalNfse { get; set; }
+        public double ValorTotalNfse { get; set; }
 
         public string Observacao { get; set; }
 
         public DateTime DataCancelamento { get; set; }
 
         public bool IsDelete { get; set; }
+
+        public int ClienteId { get; set; }
+
+        public int EmpresaId { get; set; }
+
+        public Empresa Empresa { get; set; }
+
+        public Cliente Cliente { get; set; }
+
+
+        public void Update(
+            string tipoNota,
+            int rps,
+            string numeroNfs,
+            int serie,
+            int naturezaOperacao,
+            string municipioIncidenciaIssqn,
+            DateTime dataEmissao,
+            string tipoCliente,
+            string descricaoServico,
+            int itemServico,
+            bool valorRetido,
+            bool descontarImposto,
+            double valorServico,
+            double baseCalculo,
+            double aliquota,
+            double valorDeducao,
+            double desconto,
+            double aliquotaCofins,
+            double aliquotaPis,
+            double aliquotaCsll,
+            double aliquotaIr,
+            double aliquotaInss,
+            double valorCofins,
+            double valorPis,
+            double valorCsll,
+            double valorIr,
+            double valorInss,
+            double valorTotalNfse,
+            string observacao,
+            DateTime dataCancelamento,
+            bool isDelete,
+            int clienteId,
+            int empresaId)
+        {
+            TipoNota = tipoNota;
+            Rps = rps;
+            NumeroNfs = numeroNfs;
+            Serie = serie;
+            NaturezaOperacao = naturezaOperacao;
+            MunicipioIncidenciaIssqn = municipioIncidenciaIssqn;
+            DataEmissao = dataEmissao;
+            TipoCliente = tipoCliente;
+            DescricaoServico = descricaoServico;
+            ItemServico = itemServico;
+            ValorRetido = valorRetido;
+            DescontarImposto = descontarImposto;
+            ValorServico = valorServico;
+            BaseCalculo = baseCalculo;
+            Aliquota = aliquota;
+            ValorDeducao = valorDeducao;
+            Desconto = desconto;
+            AliquotaCofins = aliquotaCofins;
+            AliquotaPis = aliquotaPis;
+            AliquotaCsll = aliquotaCsll;
+            AliquotaIr = aliquotaIr;
+            AliquotaInss = aliquotaInss;
+            ValorCofins = valorCofins;
+            ValorPis = valorPis;
+            ValorCsll = valorCsll;
+            ValorIr = valorIr;
+            ValorInss = valorInss;
+            ValorTotalNfse = valorTotalNfse;
+            Observacao = observacao;
+            DataCancelamento = dataCancelamento;
+            ClienteId = clienteId;
+            EmpresaId = empresaId;
+        }
+
+        public void Delete()
+        {
+            IsDelete = true;
+        }
+
     }
 }
