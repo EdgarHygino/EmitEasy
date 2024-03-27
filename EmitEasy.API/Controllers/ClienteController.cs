@@ -1,7 +1,5 @@
-﻿using EmitEasy.Infra.Dados.Context;
-using EmitEasy.Models.Entities;
-using EmitEasy.Models.Models;
-using Microsoft.AspNetCore.Http;
+﻿using EmitEasy.Models.Entities;
+using EmitEasy.Models.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmitEasy.API.Controllers
@@ -10,36 +8,34 @@ namespace EmitEasy.API.Controllers
     [ApiController]
     public class ClienteController : ControllerBase
     {
-        private readonly EmitEasyDbContext _context;
+        private readonly IClienteRepositorio _clienteRepositorio;
 
-        public ClienteController(EmitEasyDbContext context)
+        public ClienteController(IClienteRepositorio clienteRepositorio)
         {
-            _context = context;
+            _clienteRepositorio = clienteRepositorio;
         }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            var empresas = _context.Cliente.Where(e => e.Ativo).ToList();
-            return Ok(empresas);
+            var clientes = _clienteRepositorio.GetAll();
+            return Ok(clientes);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(Guid id)
         {
-            var empresa = _context.Cliente
-                    .SingleOrDefault(e => e.Id == id);
+            var cliente = _clienteRepositorio.GetById(id);
 
-            if (empresa == null) return NotFound();
+            if (cliente == null) return NotFound();
 
-            return Ok(empresa);
+            return Ok(cliente);
         }
 
         [HttpPost]
         public IActionResult Insert(Cliente cliente)
         {
-            _context.Cliente.Add(cliente);
-            _context.SaveChanges();
+            _clienteRepositorio.Insert(cliente);
 
             return CreatedAtAction(nameof(GetById), new { id = cliente.Id }, cliente);
         }
@@ -47,16 +43,9 @@ namespace EmitEasy.API.Controllers
         [HttpPut("{id}")]
         public IActionResult Update(Guid id, Cliente imput)
         {
-            var cliente = _context.Cliente.SingleOrDefault(d => d.Id == id);
+            var clienteExiste = _clienteRepositorio.Update(id, imput);
 
-            if (cliente == null) return NotFound();
-
-            cliente.Update(imput.RazaoSocial, imput.NomeFantasia, imput.InscricaoEstadual, imput.InscricaoMunicial, imput.Nome,
-            imput.Descricao, imput.Email, imput.Telefone, imput.Celular, imput.Cep, imput.Rua, imput.Numero, imput.Cidade, imput.Pais,
-            imput.Bairro, imput.Estado, imput.Complemento, imput.CodMunicipio);
-
-            _context.Cliente.Update(cliente);
-            _context.SaveChanges();
+            if (!clienteExiste) return NotFound();
 
             return NoContent();
         }
@@ -64,12 +53,10 @@ namespace EmitEasy.API.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
-            var cliente = _context.Cliente.SingleOrDefault(d => d.Id == id);
+            var clienteExiste = _clienteRepositorio.Delete(id);
 
-            if (cliente == null) return NotFound();
+            if (!clienteExiste) return NotFound();
 
-            cliente.Delete();
-            _context.SaveChanges();
             return NoContent();
         }
     }

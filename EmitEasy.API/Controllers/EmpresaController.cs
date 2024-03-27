@@ -1,8 +1,6 @@
-﻿using EmitEasy.Infra.Dados.Context;
-using EmitEasy.Models.Models;
+﻿using EmitEasy.Models.Entities;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Data.Entity;
+using EmitEasy.Models.Interfaces;
 
 namespace EmitEasy.API.Controllers
 {
@@ -10,25 +8,26 @@ namespace EmitEasy.API.Controllers
     [ApiController]
     public class EmpresaController : ControllerBase
     {
-        private readonly EmitEasyDbContext _context;
+        
+        private readonly IEmpresaRepositorio _empresaRepositorio;
 
-        public EmpresaController(EmitEasyDbContext context)
+        public EmpresaController(IEmpresaRepositorio empresaRepositorio)
         {
-            _context = context;
+            _empresaRepositorio = empresaRepositorio;
         }
 
         [HttpGet]
         public IActionResult GetAll() 
         {
-            var empresas = _context.Empresa.Where(e => e.Ativo).ToList();
+            var empresas = _empresaRepositorio.GetAll();
+
             return Ok(empresas);
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(Guid id)
         {
-            var empresa = _context.Empresa
-                    .SingleOrDefault(e => e.Id == id);
+            var empresa = _empresaRepositorio.GetById(id);
 
             if (empresa == null) return NotFound();
 
@@ -38,8 +37,7 @@ namespace EmitEasy.API.Controllers
         [HttpPost]
         public IActionResult Insert(Empresa empresa)
         {
-            _context.Empresa.Add(empresa);
-            _context.SaveChanges();
+            _empresaRepositorio.Insert(empresa);
 
             return CreatedAtAction(nameof(GetById), new { id = empresa.Id }, empresa);
         }
@@ -47,29 +45,21 @@ namespace EmitEasy.API.Controllers
         [HttpPut("{id}")]
         public IActionResult Update(Guid id, Empresa imput)
         {
-            var empresa = _context.Empresa.SingleOrDefault(d => d.Id == id);
+            var ExisteEmpresa = _empresaRepositorio.Update(id, imput);
 
-            if (empresa == null) return NotFound();
+            if (!ExisteEmpresa) return NotFound();
 
-            empresa.Update(imput.RazaoSocial, imput.NomeFantasia, imput.InscricaoEstadual, imput.InscricaoMunicial, imput.Nome,
-            imput.Descricao, imput.Email, imput.Telefone, imput.Celular, imput.Cep, imput.Rua, imput.Numero, imput.Cidade, imput.Pais,
-            imput.Bairro, imput.Estado, imput.Complemento, imput.CodMunicipio);
-
-            _context.Empresa.Update(empresa);
-            _context.SaveChanges();
-            
+                       
             return NoContent();
         }
 
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
         {
-            var empresa = _context.Empresa.SingleOrDefault(d => d.Id == id);
+            var ExisteEmpresa = _empresaRepositorio.Delete(id);
 
-            if (empresa == null) return NotFound();
+            if (!ExisteEmpresa) return NotFound();
 
-            empresa.Delete();
-            _context.SaveChanges();
             return NoContent();
         }
     }

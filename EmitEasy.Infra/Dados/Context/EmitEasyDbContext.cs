@@ -1,5 +1,4 @@
 ﻿using EmitEasy.Models.Entities;
-using EmitEasy.Models.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmitEasy.Infra.Dados.Context
