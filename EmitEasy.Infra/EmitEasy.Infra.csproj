@@ -15,15 +15,12 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.17" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.17" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="RabbitMQ.Client" Version="6.8.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\EmitEasy.Models\EmitEasy.Models.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Servicos\" />
   </ItemGroup>
 
 </Project>

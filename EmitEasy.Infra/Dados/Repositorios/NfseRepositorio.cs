@@ -1,6 +1,7 @@
 ﻿using EmitEasy.Infra.Dados.Context;
 using EmitEasy.Models.Entities;
 using EmitEasy.Models.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmitEasy.Infra.Dados.Repositorios
 {
@@ -15,7 +16,7 @@ namespace EmitEasy.Infra.Dados.Repositorios
 
         public List<NotaFiscalServico> GetAll()
         {
-            var notaFiscalServicos = _context.Nfse.Where(e => e.IsDelete == false).ToList();
+            var notaFiscalServicos = _context.Nfse.Include(e => e.Empresa).Include(e => e.Cliente).Where(e => e.IsDelete == false).ToList();
 
             return notaFiscalServicos;
         }

@@ -1,3 +1,4 @@
+using EmitEasy.API.Configuracoes;
 using EmitEasy.Infra.Dados.Context;
 using Microsoft.EntityFrameworkCore;
 
@@ -5,7 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddDbContext<EmitEasyDbContext>(e => e.UseInMemoryDatabase("EmitEasyDb"));
+var injecaoDepedenciaConfiguracoes = new InjecaoDepedenciaConfiguracoes();
+injecaoDepedenciaConfiguracoes.AddInjecaoDepedenciaConfig(builder.Services);
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

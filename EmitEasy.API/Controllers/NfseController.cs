@@ -11,10 +11,20 @@ namespace EmitEasy.API.Controllers
     public class NfseController: ControllerBase
     {
         private readonly INfseRepositorio _nfseRepositorio;
+        private readonly IServicoEvento _servicoEvento;
 
-        public NfseController(INfseRepositorio nfseRepositorio)
+        public NfseController(INfseRepositorio nfseRepositorio, IServicoEvento servicoEvento)
         {
             _nfseRepositorio = nfseRepositorio;
+            _servicoEvento = servicoEvento;
+        }
+
+        [HttpPost("enviaNfse")]
+        public IActionResult EnviaNfse(Guid id)
+        {
+            _servicoEvento.EnviarEvento(id);
+
+            return Ok();
         }
 
         [HttpGet]
