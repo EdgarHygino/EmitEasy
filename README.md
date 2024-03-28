@@ -21,3 +21,12 @@ Obs.
 O consumo da mensagem é realizado na API-NFSESantos.
 O envio para prefeitura é realizado utilizando protocolo SOAP, com autenticação e assinatura do xml usando certificado digital modelo A1.
 
+
+##Teste
+![Blog](Swagger.png)
+
+Rebbit Sem fila
+![Blog](Rabbitmq-sem-fila.png)
+
+Após envio da mensagem
+![Blog](Rabbitmq-com-fila.png)
