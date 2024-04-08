@@ -8,7 +8,7 @@ namespace EmitEasy.Models.Entities
         public Empresa()
         {
             Ativo = true;
-        }
+        }   
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

@@ -3,8 +3,9 @@ using RabbitMQ.Client;
 using System.Text;
 using Newtonsoft.Json;
 using RabbitMQ.Client.Exceptions;
+using EmitEasy.Models.Interfaces.Services;
 
-namespace EmitEasy.Infra.Servicos
+namespace EmitEasy.Infra.Services
 {
     public class ServicoEvento: IServicoEvento
     {

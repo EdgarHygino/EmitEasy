@@ -1,6 +1,7 @@
 ﻿using EmitEasy.Infra.Dados.Context;
 using EmitEasy.Models.Entities;
 using EmitEasy.Models.Interfaces;
+using EmitEasy.Models.Interfaces.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
